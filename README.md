@@ -7,3 +7,5 @@ curl -H "to=admin@admin.dev" \
      -F "report=@report.txt" \
      -L "https://forwarding.myserver.dev"
 ```
+
+http://forward.javanile.org/forward.javanile.org/template.php?report=tests/fixtures/report.txt

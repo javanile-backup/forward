@@ -11,30 +11,28 @@ if (empty($config['Secret'])) {
     die("Missing secret passphrase on configuration file.");
 }
 
-if (empty($headers['To'])) {
-    die("Missing or empty 'To:' header.\n");
-}
-
 $headers = getallheaders();
 
 if (empty($headers['To'])) {
     die("Missing or empty 'To:' header.\n");
 }
 
-
-$to = "";
-
-#var_dump();
-
-#echo "Ciao";
+if (empty($headers['To'])) {
+    die("Missing or empty 'To:' header.\n");
+}
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+use Javanile\Forward\Directive;
+use Javanile\Forward\Forward;
+
+$directives = Directive::getDirectives();
 
 $email = new PHPMailer();
 $email->setFrom($config['From'], $config['Name']);
-$email->Subject   = 'Message Subject';
-$email->Body      = 'Ciao';
+$email->Subject = 'Message Subject';
+$email->Body = Forward::getBody($directives);
+$email->isHtml(true);
 $email->addAddress($headers['To']);
 
 $file_to_attach = 'PATH_OF_YOUR_FILE_HERE';
