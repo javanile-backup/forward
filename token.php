@@ -15,4 +15,4 @@ if (empty($argv[2])) {
     die("Missing secret passphrase.\n");
 }
 
-echo hash("sha256", $argv[1].":".$argv[2]) . "\n";
+echo hash("sha256", strtolower($argv[1]).":".$argv[2]) . "\n";

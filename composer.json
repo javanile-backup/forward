@@ -1,4 +1,9 @@
 {
+    "autoload": {
+        "psr-4": {
+            "Javanile\\Forward\\": "src/"
+        }
+    },
     "require": {
         "phpmailer/phpmailer": "^6.1"
     }
