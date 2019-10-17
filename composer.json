@@ -1,4 +1,6 @@
 {
+    "name": "javanile/forward",
+    "version": "0.0.1",
     "autoload": {
         "psr-4": {
             "Javanile\\Forward\\": "src/"

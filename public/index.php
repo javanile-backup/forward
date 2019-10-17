@@ -10,16 +10,18 @@
  * @link       https://github.com/javanile/forward
  */
 
-if (empty($argv[1])) {
-    die("Missing email address.\n");
-}
+require_once __DIR__.'/../vendor/autoload.php';
 
-if (!filter_var($argv[1], FILTER_VALIDATE_EMAIL)) {
-    die("Invalid email format.\n");
-}
+use Javanile\Forward\Forward;
 
-if (empty($argv[2])) {
-    die("Missing secret passphrase.\n");
-}
+$config = require_once __DIR__.'/../config.php';
 
-echo hash("sha256", strtolower($argv[1]).":".hash("sha256", 'forward:'.$argv[2])) . "\n";
+$headers = getallheaders();
+
+$forward = new Forward($config, $headers);
+
+try {
+    echo $forward->send();
+} catch (Exception $error) {
+    echo $error->getMessage();
+}
