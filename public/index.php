@@ -14,14 +14,23 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 use Javanile\Forward\Forward;
 
-$config = require_once __DIR__.'/../config.php';
-
-$headers = getallheaders();
-
-$forward = new Forward($config, $headers);
+$forward = new Forward([
+    'config'  => require_once __DIR__.'/../config.php',
+    'headers' => getallheaders(),
+    'files'   => $_FILES,
+    'post'    => $_POST,
+]);
 
 try {
-    echo $forward->send();
-} catch (Exception $error) {
-    echo $error->getMessage();
+    if ($forward->process()) {
+        if ($forward->getEmail()->send()) {
+            echo $forward->successResponse();
+        } else {
+            echo $forward->problemResponse();
+        }
+    } else {
+        echo $forward->errorResponse();
+    }
+} catch (Exception $exception) {
+    echo $forward->exceptionResponse($exception);
 }

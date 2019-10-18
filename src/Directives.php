@@ -12,25 +12,25 @@
 
 namespace Javanile\Forward;
 
-class Directive
+class Directives
 {
     /**
      * @var array
      */
     protected static $directives = [
-        'file' => 'Javanile\\Forward\\Directives\\File',
-        'emacs' => 'Javanile\\Forward\\Directives\\Emacs',
+        'file'   => 'Javanile\\Forward\\Directives\\File',
+        'emacs'  => 'Javanile\\Forward\\Directives\\Emacs',
         'report' => 'Javanile\\Forward\\Directives\\Report',
     ];
 
     /**
      * @return array
      */
-    public static function getDirectives()
+    public static function parse($files, $post)
     {
         $directives = [];
 
-        foreach ($_POST as $name => $data) {
+        foreach ($post as $name => $data) {
             $type = self::getTypeByName($name);
             $directives[$name] = [
                 'name' => $name,
@@ -39,7 +39,7 @@ class Directive
             ];
         }
 
-        foreach ($_FILES as $name => $file) {
+        foreach ($files as $name => $file) {
             $type = self::getTypeByName($name);
             $directives[$name] = [
                 'name' => $name,
@@ -80,5 +80,19 @@ class Directive
     public static function getTypeByName($name)
     {
         return $name;
+    }
+
+    /**
+     *
+     */
+    public static function getFileSchema($file)
+    {
+        return [
+            'name' => basename($file),
+            'type' => 'text/plain',
+            'tmp_name' => $file,
+            'error' => 0,
+            'size' => filesize($file),
+        ]
     }
 }
