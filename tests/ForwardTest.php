@@ -25,4 +25,13 @@ class ForwardTest extends TestCase
         $forward = new Forward([], []);
         $this->assertEquals(false, $forward->process());
     }
+
+    public function testResponse()
+    {
+        $forward = new Forward([], []);
+
+        $this->assertEquals('{"info":"Message successful sent."}'."\n", $forward->successResponse());
+        $this->assertEquals('{"problem":"Problem to send message."}'."\n", $forward->problemResponse());
+        $this->assertEquals('{"exception":"Fake exception."}'."\n", $forward->exceptionResponse(new \Exception("Fake exception.")));
+    }
 }

@@ -160,7 +160,7 @@ class Forward
     public function exceptionResponse($exception)
     {
         return $this->response(400, [
-            'exception' => $exception->getMessage,
+            'exception' => $exception->getMessage(),
         ]);
     }
 }
