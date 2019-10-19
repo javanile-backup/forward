@@ -21,5 +21,8 @@ class ForwardTest extends TestCase
     {
         $forward = new Forward([], []);
         $this->assertEquals(false, $forward->process());
+
+        $forward = new Forward([], []);
+        $this->assertEquals(false, $forward->process());
     }
 }
