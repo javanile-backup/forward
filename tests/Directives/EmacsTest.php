@@ -12,7 +12,10 @@
 
 namespace Javanile\Forward\Directives;
 
-class EmacsTest
+use Javanile\Forward\Directives;
+use PHPUnit\Framework\TestCase;
+
+class EmacsTest extends TestCase
 {
     /**
      * @param $directive

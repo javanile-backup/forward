@@ -31,21 +31,17 @@ class Directives
         $directives = [];
 
         foreach ($post as $name => $data) {
-            $type = self::getTypeByName($name);
-            $directives[$name] = [
-                'name' => $name,
-                'type' => $type,
-                'data' => $data,
-            ];
+            self::appendData($directives, $name, $data);
         }
 
         foreach ($files as $name => $file) {
-            $type = self::getTypeByName($name);
-            $directives[$name] = [
-                'name' => $name,
-                'type' => $type,
-                'file' => $file,
-            ];
+            if (!is_array($file['name'])) {
+                self::appendFile($directives, $name, $file);
+                continue;
+            }
+            foreach (self::splitFiles($name, $file) as $subName => $subFile) {
+                self::appendFile($directives, $subName, $subFile);
+            }
         }
 
         return $directives;
@@ -75,11 +71,58 @@ class Directives
     }
 
     /**
+     * @param $files
+     */
+    public static function splitFiles($name, $files)
+    {
+        $filesList = [];
+
+        foreach ($files as $key => $values) {
+            foreach ($values as $subName => $value) {
+                $filesList[$name.'['.$subName.']'][$key] = $value;
+            }
+        }
+
+        return $filesList;
+    }
+
+    /**
+     * @param $directives
+     * @param $name
+     * @param $file
+     */
+    public static function appendFile(&$directives, $name, $file)
+    {
+        $type = self::getTypeByName($name);
+        $directives[$name] = [
+            'name' => $name,
+            'type' => $type,
+            'file' => $file,
+        ];
+    }
+
+    /**
+     * @param $directives
+     * @param $name
+     * @param $file
+     */
+    public static function appendData(&$directives, $name, $data)
+    {
+        $directives[$name] = [
+            'name' => $name,
+            'type' => self::getTypeByName($name),
+            'data' => $data,
+        ];
+    }
+
+    /**
      *
      */
     public static function getTypeByName($name)
     {
-        return $name;
+        preg_match('/^[a-z]+/i', $name, $info);
+
+        return isset($info[0]) && $info[0] ? $info[0] : 'none';
     }
 
     /**
@@ -93,6 +136,29 @@ class Directives
             'tmp_name' => $file,
             'error' => 0,
             'size' => filesize($file),
-        ]
+        ];
+    }
+
+    /**
+     *
+     */
+    public static function getFilesSchema($files)
+    {
+        $filesSchema = [
+            'name' => [],
+            'type' => [],
+            'tmp_name' => [],
+            'error' => [],
+            'size' => [],
+        ];
+
+        foreach ($files as $name => $file) {
+            $fileSchema = self::getFileSchema($file);
+            foreach ($fileSchema as $key => $value) {
+                $filesSchema[$key][$name] = $value;
+            }
+        }
+
+        return $filesSchema;
     }
 }

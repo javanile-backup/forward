@@ -12,6 +12,8 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
+var_dump($_POST, $_FILES); exit();
+
 use Javanile\Forward\Forward;
 
 $forward = new Forward([

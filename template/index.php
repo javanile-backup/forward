@@ -31,11 +31,17 @@ use Javanile\Forward\DirectiveTest;
             <?php if (DirectiveTest::check($directive)) { ?>
                 <tr>
                     <td align="left" valign="top">
-                        <?php DirectiveTest::process($directive, $directives); ?>
+                        <?php Directives::process($directive, $directives); ?>
                     </td>
                 </tr>
             <?php } ?>
         <?php } ?>
+
+        <tr>
+            <td align="left" valign="top">
+                IP of client: X.X.X.X
+            </td>
+        </tr>
     </table>
 </center>
 </body>

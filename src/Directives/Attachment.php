@@ -12,7 +12,7 @@
 
 namespace Javanile\Forward\Directives;
 
-class File
+class Attachment
 {
     /**
      * @param $directive

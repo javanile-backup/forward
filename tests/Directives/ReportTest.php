@@ -12,14 +12,12 @@
 
 namespace Javanile\Forward\Directives;
 
-class ReportTest
+use Javanile\Forward\Directives\Report;
+use PHPUnit\Framework\TestCase;
+
+class ReportTest extends TestCase
 {
-    /**
-     * @param $directive
-     * @param $directives
-     * @return string
-     */
-    public function process($directive, $directives)
+    public function testProcess()
     {
         if (empty($directive['file'])) {
             return 'Report file not attached';
