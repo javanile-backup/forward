@@ -10,5 +10,7 @@ class AttachmentTest extends TestCase
     public function testProcess()
     {
         $attachment = new Attachment();
+
+        $this->assertEquals('File not attached', $attachment->process([], []));
     }
 }
