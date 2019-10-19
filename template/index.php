@@ -10,7 +10,7 @@
  * @link      https://github.com/javanile/forward
  */
 
-use Javanile\Forward\DirectiveTest;
+use Javanile\Forward\Directives;
 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -28,7 +28,7 @@ use Javanile\Forward\DirectiveTest;
 <center>
     <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
         <?php foreach ($directives as $directive) { ?>
-            <?php if (DirectiveTest::check($directive)) { ?>
+            <?php if (Directives::check($directive)) { ?>
                 <tr>
                     <td align="left" valign="top">
                         <?php Directives::process($directive, $directives); ?>
@@ -39,7 +39,7 @@ use Javanile\Forward\DirectiveTest;
 
         <tr>
             <td align="left" valign="top">
-                IP of client: X.X.X.X
+                IP of client: <?=$clientIp?>
             </td>
         </tr>
     </table>

@@ -12,13 +12,12 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-var_dump($_POST, $_FILES); exit();
-
 use Javanile\Forward\Forward;
 
 $forward = new Forward([
     'config'  => require_once __DIR__.'/../config.php',
     'headers' => getallheaders(),
+    'server'  => $_SERVER,
     'files'   => $_FILES,
     'post'    => $_POST,
 ]);
@@ -31,7 +30,7 @@ try {
             echo $forward->problemResponse();
         }
     } else {
-        echo $forward->errorResponse();
+        echo $forward->processErrorResponse();
     }
 } catch (Exception $exception) {
     echo $forward->exceptionResponse($exception);

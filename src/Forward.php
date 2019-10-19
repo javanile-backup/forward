@@ -44,6 +44,7 @@ class Forward
     {
         $this->config = isset($settings['config']) ? $settings['config'] : [];
         $this->headers = isset($settings['headers']) ? $settings['headers'] : [];
+        $this->server = isset($settings['server']) ? $settings['server'] : [];
         $this->files = isset($settings['files']) ? $settings['files'] : [];
         $this->post = isset($settings['post']) ? $settings['post'] : [];
 
@@ -80,13 +81,13 @@ class Forward
             return false;
         }
 
-        $directives = DirectiveTest::getDirectives();
+        $directives = Directives::parse($this->files, $this->post);
 
-        $this->email->setFrom($config['From'], $config['Name']);
+        $this->email->setFrom($this->config['From'], $this->config['Name']);
         $this->email->Subject = 'Message Subject';
-        $this->email->Body = ForwardTest::getBody($directives);
+        $this->email->Body = $this->parseBody($directives);
         $this->email->isHtml(true);
-        $this->email->addAddress($headers['To']);
+        $this->email->addAddress($this->headers['To']);
 
         foreach ($_FILES as $file) {
             $this->email->addAttachment($file['tmp_name'] , $file['name']);
@@ -109,6 +110,8 @@ class Forward
      */
     public function parseBody($directives)
     {
+        $clientIp = $this->getClientIp();
+
         ob_start();
 
         include __DIR__.'/../template/index.php';
@@ -157,10 +160,43 @@ class Forward
     /**
      * @return string
      */
+    public function errorResponse()
+    {
+        return $this->response(200, [
+            'error' => $this->error,
+        ]);
+    }
+
+    /**
+     * @return string
+     */
     public function exceptionResponse($exception)
     {
         return $this->response(400, [
             'exception' => $exception->getMessage(),
         ]);
+    }
+
+    /**
+     * @return string
+     */
+    public function getClientIp()
+    {
+        $ipaddress = '';
+        if (isset($this->server['HTTP_CLIENT_IP']))
+            $ipaddress = $this->server['HTTP_CLIENT_IP'];
+        else if(isset($this->server['HTTP_X_FORWARDED_FOR']))
+            $ipaddress = $this->server['HTTP_X_FORWARDED_FOR'];
+        else if(isset($this->server['HTTP_X_FORWARDED']))
+            $ipaddress = $this->server['HTTP_X_FORWARDED'];
+        else if(isset($this->server['HTTP_FORWARDED_FOR']))
+            $ipaddress = $this->server['HTTP_FORWARDED_FOR'];
+        else if(isset($this->server['HTTP_FORWARDED']))
+            $ipaddress = $this->server['HTTP_FORWARDED'];
+        else if(isset($this->server['REMOTE_ADDR']))
+            $ipaddress = $this->server['REMOTE_ADDR'];
+        else
+            $ipaddress = 'UNKNOWN';
+        return $ipaddress;
     }
 }
