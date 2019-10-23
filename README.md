@@ -7,7 +7,7 @@
 
 Forward your artefacts or your reports via email from your CI/CD pipeline.
 With `javanile/forward` microservice you could send by email the output of your favourite pipeline platforms like:
-GitHub, BitBucket, Travis-CI, Jenkins, etc...
+GitLab, BitBucket, Travis-CI, Jenkins, etc...
 
 ## Installation
 
