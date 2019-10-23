@@ -10,12 +10,12 @@
  *
  * @link      https://github.com/javanile/forward
  */
-require_once __DIR__.'/../vendor/autoload.php';
+require_once '../vendor/autoload.php';
 
 use Javanile\Forward\Forward;
 
 $forward = new Forward([
-    'config'  => require_once __DIR__.'/../config.php',
+    'config'  => require_once '../config.php',
     'headers' => getallheaders(),
     'server'  => $_SERVER,
     'files'   => $_FILES,
