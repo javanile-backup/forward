@@ -1,12 +1,13 @@
 <?php
 /**
- * Short description for class
+ * Short description for class.
  *
- * @package   Javanile\Forward
  * @author    Francesco Bianco <bianco@javanile.org>
  * @copyright 2019 Javanile
  * @license   https://github.com/javanile/forward/blob/master/LICENSE  MIT License
+ *
  * @version   Release: 0.0.1
+ *
  * @link      https://github.com/javanile/forward
  */
 
@@ -24,6 +25,9 @@ class Directives
     ];
 
     /**
+     * @param mixed $files
+     * @param mixed $post
+     *
      * @return array
      */
     public static function parse($files, $post)
@@ -61,6 +65,7 @@ class Directives
 
     /**
      * @param $directive
+     * @param mixed $directives
      */
     public static function process($directive, $directives)
     {
@@ -72,6 +77,7 @@ class Directives
 
     /**
      * @param $files
+     * @param mixed $name
      */
     public static function splitFiles($name, $files)
     {
@@ -105,6 +111,7 @@ class Directives
      * @param $directives
      * @param $name
      * @param $file
+     * @param mixed $data
      */
     public static function appendData(&$directives, $name, $data)
     {
@@ -116,7 +123,7 @@ class Directives
     }
 
     /**
-     *
+     * @param mixed $name
      */
     public static function getTypeByName($name)
     {
@@ -126,30 +133,30 @@ class Directives
     }
 
     /**
-     *
+     * @param mixed $file
      */
     public static function getFileSchema($file)
     {
         return [
-            'name' => basename($file),
-            'type' => 'text/plain',
+            'name'     => basename($file),
+            'type'     => 'text/plain',
             'tmp_name' => $file,
-            'error' => 0,
-            'size' => filesize($file),
+            'error'    => 0,
+            'size'     => filesize($file),
         ];
     }
 
     /**
-     *
+     * @param mixed $files
      */
     public static function getFilesSchema($files)
     {
         $filesSchema = [
-            'name' => [],
-            'type' => [],
+            'name'     => [],
+            'type'     => [],
             'tmp_name' => [],
-            'error' => [],
-            'size' => [],
+            'error'    => [],
+            'size'     => [],
         ];
 
         foreach ($files as $name => $file) {
