@@ -1,19 +1,19 @@
 <?php
 /**
- * Short description for class
+ * Short description for class.
  *
- * @package   Javanile\Forward
  * @author    Francesco Bianco <bianco@javanile.org>
  * @copyright 2019 Javanile
  * @license   https://github.com/javanile/forward/blob/master/LICENSE  MIT License
+ *
  * @version   Release: 0.0.1
+ *
  * @link      https://github.com/javanile/forward
  */
 
 namespace Javanile\Forward;
 
 use PHPMailer\PHPMailer\PHPMailer;
-use Javanile\Forward\DirectiveTest;
 
 class Forward
 {
@@ -38,7 +38,7 @@ class Forward
     protected $error;
 
     /**
-     *
+     * @param mixed $settings
      */
     public function __construct($settings)
     {
@@ -58,26 +58,31 @@ class Forward
     {
         if (empty($this->config['Hash'])) {
             $this->error = "Missing 'Hash' passphrase on configuration file.";
+
             return false;
         }
 
         if (empty($this->headers['Token'])) {
             $this->error = "Missing or empty 'Token:' header.";
+
             return false;
         }
 
         if (empty($this->headers['To'])) {
             $this->error = "Missing or empty 'To:' header.";
+
             return false;
         }
 
         if (empty($this->headers['To'])) {
             $this->error = "Missing or empty 'To:' header.";
+
             return false;
         }
 
         if ($this->buildToken() != $this->headers['Token']) {
             $this->error = "Unauthorized 'Token:' in header.";
+
             return false;
         }
 
@@ -90,7 +95,7 @@ class Forward
         $this->email->addAddress($this->headers['To']);
 
         foreach ($_FILES as $file) {
-            $this->email->addAttachment($file['tmp_name'] , $file['name']);
+            $this->email->addAttachment($file['tmp_name'], $file['name']);
         }
 
         return true;
@@ -106,6 +111,7 @@ class Forward
 
     /**
      * @param $directives
+     *
      * @return string
      */
     public function parseBody($directives)
@@ -128,6 +134,9 @@ class Forward
     }
 
     /**
+     * @param mixed $code
+     * @param mixed $response
+     *
      * @return string
      */
     public function response($code, $response)
@@ -168,6 +177,8 @@ class Forward
     }
 
     /**
+     * @param mixed $exception
+     *
      * @return string
      */
     public function exceptionResponse($exception)
@@ -183,20 +194,22 @@ class Forward
     public function getClientIp()
     {
         $ipaddress = '';
-        if (isset($this->server['HTTP_CLIENT_IP']))
+        if (isset($this->server['HTTP_CLIENT_IP'])) {
             $ipaddress = $this->server['HTTP_CLIENT_IP'];
-        else if(isset($this->server['HTTP_X_FORWARDED_FOR']))
+        } elseif (isset($this->server['HTTP_X_FORWARDED_FOR'])) {
             $ipaddress = $this->server['HTTP_X_FORWARDED_FOR'];
-        else if(isset($this->server['HTTP_X_FORWARDED']))
+        } elseif (isset($this->server['HTTP_X_FORWARDED'])) {
             $ipaddress = $this->server['HTTP_X_FORWARDED'];
-        else if(isset($this->server['HTTP_FORWARDED_FOR']))
+        } elseif (isset($this->server['HTTP_FORWARDED_FOR'])) {
             $ipaddress = $this->server['HTTP_FORWARDED_FOR'];
-        else if(isset($this->server['HTTP_FORWARDED']))
+        } elseif (isset($this->server['HTTP_FORWARDED'])) {
             $ipaddress = $this->server['HTTP_FORWARDED'];
-        else if(isset($this->server['REMOTE_ADDR']))
+        } elseif (isset($this->server['REMOTE_ADDR'])) {
             $ipaddress = $this->server['REMOTE_ADDR'];
-        else
+        } else {
             $ipaddress = 'UNKNOWN';
+        }
+
         return $ipaddress;
     }
 }

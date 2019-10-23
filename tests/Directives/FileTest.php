@@ -2,7 +2,6 @@
 
 namespace Javanile\Forward\Directives;
 
-use Javanile\Forward\Directives\File;
 use PHPUnit\Framework\TestCase;
 
 class FileTest extends TestCase
