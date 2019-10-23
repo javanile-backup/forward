@@ -20,13 +20,13 @@ GitHub, BitBucket, Travis-CI, Jenkins, etc...
 Sinply create an `Hash` to blind your secret passphrase to hosting maintainers
 ```bash
 $ php bin/hash <my-secret-passphrase>
-# b3598964c6788457cf7108dcbbb30da67d9121d74501f990b0a4476154768ba6 (copy and paste into config.php file)
+# b3598964c6788457cf7108dcbbb30da67d9121d74501f990b0a4476154768ba6 (copy & paste into config.php file)
 ```
 
 Next create a `Token` ready to grant email forwarding to the recipient
 ```bash
 $ php bin/token <recipient-email> <my-secret-passphrase>
-# b3598964c6788457cf7108dcbbb30da67d9121d74501f990b0a4476154768ba6 (copy and paste into cURL command)
+# b3598964c6788457cf7108dcbbb30da67d9121d74501f990b0a4476154768ba6 (copy & paste into cURL command)
 ```
 
 ## Send first email
