@@ -12,8 +12,8 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-use Javanile\Forward\ForwardTest;
-use Javanile\Forward\DirectiveTest;
+use Javanile\Forward\Forward;
+use Javanile\Forward\Directives;
 
 foreach ($_GET as $name => $data) {
     if ($data[0] == '@') {
@@ -26,15 +26,15 @@ foreach ($_GET as $name => $data) {
     } else {
         $directives[$name] = [
             'name' => $name,
-            'type' => DirectiveTest::getTypeByName($name),
+            'type' => Directives::getTypeByName($name),
             'data' => $data,
         ];
     }
 }
 
-$forward = new ForwardTest(
+$forward = new Forward(
     ['Name' => '-', 'From' => '-', 'Hash' => 'b3598964c6788457cf7108dcbbb30da67d9121d74501f990b0a4476154768ba6'],
     ['To' => 'test@test.test', 'Token' => '86190a0a069ff69e8bb71265865410fa051b7104d4d14a92661aff95948824e7']
 );
 
-echo $forward->getBody($directives);
+echo $forward->parseBody($directives);
