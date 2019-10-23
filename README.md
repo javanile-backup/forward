@@ -1,6 +1,6 @@
 # javanile/forward
 
-[![StyleCI](https://github.styleci.io/repos/214412050/shield?branch=master)]
+[![StyleCI](https://github.styleci.io/repos/214412050/shield?branch=master)](https://github.styleci.io/repos/214412050)
 [![Build Status](https://travis-ci.org/javanile/forward.svg?branch=master)](https://travis-ci.org/javanile/forward)
 [![codecov](https://codecov.io/gh/javanile/forward/branch/master/graph/badge.svg)](https://codecov.io/gh/javanile/forward)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/07708c2e6c87463d90eb33a2d184483f)](https://www.codacy.com/manual/francescobianco/forward?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=javanile/forward&amp;utm_campaign=Badge_Grade)
@@ -26,7 +26,7 @@ $ php bin/hash <my-secret-passphrase>
 Next create a `Token` ready to grant email forwarding to the recipient
 ```bash
 $ php bin/token <recipient-email> <my-secret-passphrase>
-# b3598964c6788457cf7108dcbbb30da67d9121d74501f990b0a4476154768ba6 (copy and paste into config.php file)
+# b3598964c6788457cf7108dcbbb30da67d9121d74501f990b0a4476154768ba6 (copy and paste into cURL command)
 ```
 
 ## Send first email
@@ -67,6 +67,18 @@ curl -L "https://forwarding.myserver.dev" \
 ```
 
 ### Travis-CI code quality report
+```
+
+
+```
+
+### Jenkins code quality report
+```
+
+
+```
+
+### Jenkins code quality report
 ```
 
 
