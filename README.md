@@ -1,4 +1,6 @@
-# javanile/forward
+# Forward
+
+> Easily forward report or artefact from your CI/CD to you email
 
 [![StyleCI](https://github.styleci.io/repos/214412050/shield?branch=master)](https://github.styleci.io/repos/214412050)
 [![Build Status](https://travis-ci.org/javanile/forward.svg?branch=master)](https://travis-ci.org/javanile/forward)
