@@ -2,6 +2,6 @@
   "name": "Node.js Sample",
   "description": "A barebones Node.js app using Express",
   "repository": "https://github.com/heroku/node-js-getting-started",
-  "logo": "https://node-js-sample.herokuapp.com/node.png",
+  "logo": "https://raw.githubusercontent.com/javanile/forward/master/forward-2831368_1280.png",
   "keywords": ["node", "express", "static"]
 }
